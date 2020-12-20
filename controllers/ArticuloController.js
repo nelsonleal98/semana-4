@@ -23,7 +23,7 @@ module.exports = {
     },
     update : async (req, res, next) =>  {
         try{
-            const re = await Articulo.update( { categoriaId: req.body.categoriaId, codigo: req.body.codigo, nombre: req.body.nombre, descripcion: req.body.descripcion} , {where: {id: req.body.id }}   )
+            const re = await Articulo.update( { codigo: req.body.codigo, nombre: req.body.nombre, descripcion: req.body.descripcion} , {where: {id: req.body.id }}   )
             res.status(200).json(re)
         }catch (error) {
             res.status(500).json({ 'error' : 'Oops paso algo' })
