@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,vscode,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,vscode,windows
+# Created by https://www.toptal.com/developers/gitignore/api/node,windows
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,windows
 
 ### Node ###
 # Logs
@@ -113,14 +113,6 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-### vscode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
-
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -147,4 +139,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/node,vscode,windows
+# End of https://www.toptal.com/developers/gitignore/api/node,windows
