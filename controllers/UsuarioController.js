@@ -72,12 +72,12 @@ module.exports = {
         try{
             let pas =  req.body.password;
             //Buscar al usuario
-            const user = await Usuario.findOne( { where :  { id : req.body.id } } )
+            const user = await Usuario.findOne( { where :  { email : req.body.email } } )
             
             if(pas != user.password){
                 req.body.password = await bcrypt.hashSync(req.body.password, 10)   
             }
-            const re = await Usuario.update( { nombre: req.body.nombre, email : req.body.email ,password: req.body.password , estado: req.body.estado} , {where: { id: req.body.id }}   )
+            const re = await Usuario.update( { nombre: req.body.nombre, password: req.body.password , estado: req.body.estado} , {where: { email : req.body.email }}   )
             res.status(200).json(re)
             
         }catch (error) {
