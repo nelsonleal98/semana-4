@@ -14,8 +14,8 @@ module.exports = {
                 rol: rol,
             }, 'mipalabrasecreta', {
                 expiresIn : 3600
-            } )
-            return token
+            } );
+            return token;
         } catch (error) {
             return null
         }
@@ -31,7 +31,7 @@ module.exports = {
                 return false;
             }
         } catch (error) {
-            return false;
+            return null;
         }
 
     }
