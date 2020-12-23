@@ -40,21 +40,26 @@ module.exports = {
         try {
                 const user = await Usuario.findOne( { where :  { email : req.body.email } } )
                 if(user){
-                    // Evaluar contraseña
-                    const  contrasenhaValida = bcrypt.compareSync(req.body.password, user.password)
-                if (contrasenhaValida)
-                {
-                    const token = await servToken.encode(user.id , user.rol)
-                    res.status(200).send({
-                        auth: true,
-                        tokenReturn: token,
-                        user: user
-                    })
-
-                }  else {
-                    res.status(401).send({ auth: false, tokenReturn: null, reason:
-                        "Invalid Password!" })
-                }
+                    if(user.estado === 1){
+                            // Evaluar contraseña
+                        const  contrasenhaValida = bcrypt.compareSync(req.body.password, user.password)
+                        if (contrasenhaValida)
+                        {
+                            const token = await servToken.encode(user.id , user.rol)
+                            res.status(200).send({
+                                auth: true,
+                                tokenReturn: token,
+                                user: user
+                            })
+        
+                        }  else {
+                            res.status(401).send({ auth: false, tokenReturn: null, reason:
+                                "Invalid Password!" })
+                        }
+                    }else{
+                        res.status(401).send({ auth: false, tokenReturn: null, reason:
+                            "Usuario inactivo!" })
+                    }
 
             } else {
                 res.status(404).send('Usuario no existe')
@@ -73,11 +78,16 @@ module.exports = {
             let pas =  req.body.password;
             //Buscar al usuario
             const user = await Usuario.findOne( { where :  { email : req.body.email } } )
-            
+            // const validPassword = bcrypt.compareSync(req.body.password, user.password)
+            // const newEncriptedPassword = req.body.newpassword ? bcrypt.hashSync(req.body.newpassword) : user.password
+            // if(validPassword){
+            //     const re = await Usuario.update( { nombre: req.body.nombre, password: newEncriptedPassword , estado: req.body.estado} , {where: { email : req.body.email }}   )
+            //     res.status(200).json(re)   
+            // }
             if(pas != user.password){
-                req.body.password = await bcrypt.hashSync(req.body.password, 10)   
+                req.body.password = await bcrypt.hashSync(req.body.password)   
             }
-            const re = await Usuario.update( { nombre: req.body.nombre, password: req.body.password , estado: req.body.estado} , {where: { email : req.body.email }}   )
+            const re = await Usuario.update( { nombre: req.body.nombre, password: req.body.password , estado: req.body.estado} , {where: { email: req.body.email }}   )
             res.status(200).json(re)
             
         }catch (error) {
